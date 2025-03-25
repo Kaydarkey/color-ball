@@ -15,6 +15,12 @@ NUM_RODS = 5
 BALLS_PER_ROD = 5
 CONFETTI_COUNT = 100
 
+<<<<<<< HEAD
+=======
+# Randomly choose 4 colors per session
+COLORS = random.sample(ALL_COLORS, 4)
+
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
 # Set up display
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Color Sorting Game")
@@ -22,6 +28,7 @@ pygame.display.set_caption("Color Sorting Game")
 # Font
 font = pygame.font.Font(None, 36)
 
+<<<<<<< HEAD
 # Confetti effect
 class Confetti:
     def __init__(self):
@@ -40,6 +47,8 @@ class Confetti:
 
 confetti = Confetti()
 
+=======
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
 # Rod class
 class Rod:
     def __init__(self, x):
@@ -64,6 +73,7 @@ class Rod:
     def is_uniform(self):
         return len(set(self.balls)) <= 1  # All balls same color or empty
 
+<<<<<<< HEAD
 def setup_game():
     global rods, COLORS, win_message
 
@@ -91,13 +101,59 @@ def setup_game():
     confetti.particles = []  # Reset confetti
 
 setup_game()
+=======
+# Create rods and balls
+rods = [Rod(SPACING + i * 100) for i in range(NUM_RODS)]
+
+# Ensure at least one empty rod
+filled_rods = rods[:-1]
+
+# Distribute exactly 5 of each color
+balls = [color for color in COLORS for _ in range(5)]
+random.shuffle(balls)
+
+# Assign shuffled balls to rods
+ball_index = 0
+for rod in filled_rods:
+    for _ in range(BALLS_PER_ROD):
+        rod.add_ball(balls[ball_index])
+        ball_index += 1
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
 
 selected_ball = None
 selected_rod = None
 selected_ball_pos = None
 
+<<<<<<< HEAD
 # Game loop
 running = True
+=======
+# Confetti effect
+class Confetti:
+    def __init__(self):
+        self.particles = []
+
+    def generate(self):
+        for _ in range(CONFETTI_COUNT):
+            self.particles.append([
+                random.randint(0, WIDTH),
+                random.randint(0, HEIGHT),
+                random.choice(ALL_COLORS),
+                random.randint(-3, 3),
+                random.randint(1, 5)
+            ])
+
+    def draw(self, screen):
+        for p in self.particles:
+            pygame.draw.circle(screen, p[2], (p[0], p[1]), 5)
+            p[1] -= p[4]  # Move confetti upwards
+
+confetti = Confetti()
+
+# Game loop
+running = True
+win_message = False
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
 while running:
     screen.fill((200, 200, 200))
 
@@ -108,16 +164,20 @@ while running:
         text = font.render("You Win!", True, (0, 255, 0))
         screen.blit(text, (WIDTH // 2 - 50, HEIGHT // 4))
 
+<<<<<<< HEAD
         # New Game button
         button_rect = pygame.Rect(WIDTH // 2 - 60, HEIGHT // 2, 120, 50)
         pygame.draw.rect(screen, (0, 200, 0), button_rect)
         button_text = font.render("New Game", True, (255, 255, 255))
         screen.blit(button_text, (WIDTH // 2 - 50, HEIGHT // 2 + 10))
 
+=======
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
+<<<<<<< HEAD
             if win_message:
                 if button_rect.collidepoint(event.pos):  # Restart game if button is clicked
                     setup_game()
@@ -129,6 +189,14 @@ while running:
                         selected_rod = rod
                         selected_ball_pos = event.pos
                         break
+=======
+            for rod in rods:
+                if rod.x <= event.pos[0] <= rod.x + ROD_WIDTH and rod.balls:
+                    selected_ball = rod.remove_ball()
+                    selected_rod = rod
+                    selected_ball_pos = event.pos
+                    break
+>>>>>>> 82834127f5a826c92a24e5c4f16d49397e0af5b2
         elif event.type == pygame.MOUSEBUTTONUP and selected_ball:
             for rod in rods:
                 if rod.x <= event.pos[0] <= rod.x + ROD_WIDTH:
