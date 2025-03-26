@@ -109,10 +109,10 @@ while running:
         screen.blit(text, (WIDTH // 2 - 50, HEIGHT // 4))
 
         # New Game button
-        button_rect = pygame.Rect(WIDTH // 2 - 60, HEIGHT // 2, 120, 50)
+        button_rect = pygame.Rect(WIDTH // 2 - 60, HEIGHT // 2 - 30, 120, 50)
         pygame.draw.rect(screen, (0, 200, 0), button_rect)
         button_text = font.render("New Game", True, (255, 255, 255))
-        screen.blit(button_text, (WIDTH // 2 - 50, HEIGHT // 2 + 10))
+        screen.blit(button_text, (WIDTH // 2 - 50, HEIGHT // 2 - 20))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
